@@ -13,6 +13,11 @@ router.post("/mockingpets", petsControllers.createPets);
 
 router.post("/mockingusers", usersControllers.createUser);
 
-router.post("/generateData/:numUsers/:numMascotas", usersControllers.generateData);
+router.post(
+  "/generateData/:numUsers/:numMascotas",
+  usersControllers.generateData
+);
+
+router.get("/getUserById/:idUser", usersControllers.getUserById);
 
 export default router;

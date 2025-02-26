@@ -8,8 +8,9 @@ const UsersSchema = new Schema({
   password: { type: String, required: true },
   age: { type: Number, required: true },
   pets: [{ type: Schema.Types.ObjectId, ref: "pets", default: [] }],
+  image: {type: String}
 });
-
+  
 UsersSchema.plugin(mongoosePaginate);
 
 export const userModel = model("users", UsersSchema);

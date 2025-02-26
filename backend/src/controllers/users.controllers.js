@@ -27,3 +27,13 @@ export const generateData = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getUserById = async (req, res, next) => {
+  try {
+    const { idUser } = req.params;
+    const user = await services.getUserById(idUser);
+    res.send({ message: "Success", data: user });
+  } catch (error) {
+    next(error);
+  }
+};

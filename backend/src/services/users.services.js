@@ -5,9 +5,9 @@ import * as petService from "./pets.services.js";
 
 export const getUsers = async () => {
   try {
-    const pets = await userDao.getUsers();
-    if (!pets) throw new CustomError("Error al obtener las mascotas", 404);
-    return pets;
+    const users = await userDao.getUsers();
+    if (!users) throw new CustomError("Error al obtener las mascotas", 404);
+    return users;
   } catch (error) {
     throw error;
   }
@@ -32,6 +32,7 @@ export const createUser = async () => {
         password: "coder123",
         age: faker.number.int({ min: 1, max: 90 }),
         pets: petId ? [petId] : [],
+        image: faker.image.personPortrait({sex:""})
       };
 
       const newUser = await userDao.createUser(userData);
@@ -83,6 +84,16 @@ export const generateData = async (numUsers, numMascotas) => {
     }
 
     return usersCreated;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getUserById = async (idUser) => {
+  try {
+    const user = await userDao.getUserById(idUser);
+    if (!user) throw new CustomError("Error al buscar el usuario", 400);
+    return user;
   } catch (error) {
     throw error;
   }

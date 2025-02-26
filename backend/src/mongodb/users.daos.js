@@ -7,7 +7,7 @@ class UserDaoMongo {
 
   async getUsers() {
     try {
-      return await this.model.find();
+      return await this.model.find().populate("pets");
     } catch (error) {
       throw new Error(error);
     }
@@ -16,6 +16,14 @@ class UserDaoMongo {
   async createUser(obj) {
     try {
       return await this.model.create(obj);
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async getUserById(idUser) {
+    try {
+      return await this.model.findById(idUser).populate("pets");
     } catch (error) {
       throw new Error(error);
     }
