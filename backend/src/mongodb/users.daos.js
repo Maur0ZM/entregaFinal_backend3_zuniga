@@ -1,4 +1,5 @@
 import { userModel } from "./models/users.models.js";
+import { petsDao } from "./pets.daos.js";
 
 class UserDaoMongo {
   constructor(model) {
@@ -15,7 +16,9 @@ class UserDaoMongo {
 
   async createUser(obj) {
     try {
-      return await this.model.create(obj);
+      const newUser = await this.model.create(obj);
+      await newUser.save();
+      return newUser;
     } catch (error) {
       throw new Error(error);
     }
@@ -26,6 +29,26 @@ class UserDaoMongo {
       return await this.model.findById(idUser).populate("pets");
     } catch (error) {
       throw new Error(error);
+    }
+  }
+
+  async updateUser(idUser, obj) {
+    try {
+      return await this.model.findByIdAndUpdate(
+        idUser,
+        { $set: obj },
+        { new: true }
+      );
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async findUserByEmail(email) {
+    try {
+      return await this.model.findOne({ email });
+    } catch (error) {
+      throw new Error(error.message);
     }
   }
 }

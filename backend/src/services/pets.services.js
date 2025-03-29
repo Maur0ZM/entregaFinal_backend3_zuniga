@@ -28,3 +28,33 @@ export const createPets = async () => {
     throw error;
   }
 };
+
+export const updatePet = async (id, obj) => {
+  try {
+    const upPet = await petsDao.updatePet(id, obj);
+    if (!upPet) throw new CustomError("Error al actualizar la mascota", 400);
+    return upPet;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deletePet = async (id) => {
+  try {
+    const delPet = await petsDao.deletePet(id);
+    if (!delPet) throw new CustomError("Error al eliminar la mascota", 400);
+    return delPet;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getPetById = async (id) => {
+  try {
+    const pet = await petsDao.getPetById(id);
+    if (!pet) throw new CustomError("Mascota no encontrada", 404);
+    return pet;
+  } catch (error) {
+    throw error;
+  }
+}

@@ -2,6 +2,7 @@ import { userDao } from "../mongodb/users.daos.js";
 import { CustomError } from "../utils/error.custom.js";
 import { faker } from "@faker-js/faker";
 import * as petService from "./pets.services.js";
+import { logger } from "../utils/logger.js";
 
 export const getUsers = async () => {
   try {
@@ -13,7 +14,17 @@ export const getUsers = async () => {
   }
 };
 
-export const createUser = async () => {
+export const createUser = async (obj) => {
+  try {
+    const user = await userDao.createUser(obj);
+    if (!user) throw new CustomError("Error al crear el usuario", 400);
+    return user;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const createUserFaker = async () => {
   try {
     let countUser = 50;
     let usersCreated = [];
@@ -32,7 +43,7 @@ export const createUser = async () => {
         password: "coder123",
         age: faker.number.int({ min: 1, max: 90 }),
         pets: petId ? [petId] : [],
-        image: faker.image.personPortrait({sex:""})
+        image: faker.image.personPortrait({ sex: "" }),
       };
 
       const newUser = await userDao.createUser(userData);
@@ -98,3 +109,19 @@ export const getUserById = async (idUser) => {
     throw error;
   }
 };
+export const findUserByEmail = async (email) => {
+  try {
+    const user = await userDao.findUserByEmail(email);
+
+    if (!user) {
+      logger.error(`Usuario no encontrado con email: ${email}`);
+      throw new CustomError("Usuario no encontrado", 404);
+    }
+
+    return user;
+  } catch (error) {
+    logger.error(`Error en findUserByEmail: ${error.message}`);
+    throw error;
+  }
+};
+
