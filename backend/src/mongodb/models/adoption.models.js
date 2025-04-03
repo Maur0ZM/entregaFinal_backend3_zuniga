@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
 
 const PetsSchema = new Schema({
-  pets: { type: Schema.Types.ObjectId, ref: "pets" },
+  pets: [{ type: Schema.Types.ObjectId, ref: "pets" }],
   owner: { type: Schema.Types.ObjectId, ref: "users" },
 });
 

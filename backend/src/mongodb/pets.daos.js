@@ -41,17 +41,19 @@ class PetDaoMongo {
     }
   }
 
-  async getAllPetsAdoption() {
+  async getPetById(id) {
     try {
-      return await this.model.find({ adoption: true });
+      return await this.model.findById(id);
     } catch (error) {
       throw new Error(error);
     }
   }
 
-  async getPetById(id) {
+  async getAdoptedPets() {
     try {
-      return await this.model.findById(id);
+      return await this.model
+        .find({ adopted: true })
+        .populate({ path: "owner", select: "name email" });
     } catch (error) {
       throw new Error(error);
     }

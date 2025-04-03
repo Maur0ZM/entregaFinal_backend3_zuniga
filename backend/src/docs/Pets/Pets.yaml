@@ -1,80 +1,146 @@
 paths:
-  /api/mocks/getpets:
-    get:
+  /pets/createpets:
+    post:
       tags:
         - Pets
-      summary: Get all pets
-      description: Get all pets
+      summary: Create Pets from Faker
+      description: Create Pets Faker
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  status:
+                  message:  
                     type: string
                     description: Status of the request
-                    example: success
+                    example: Success
                   payload:
                     type: array
                     items:
-                      $ref: "#/components/schemas/Pet"
-        "403":
+                        $ref: '#/components/schemas/Pet'
+        '403':
           description: Forbidden
-        "500":
+        '500':
           description: Internal Server Error
-
-  /api/mocks/mockingpets:
-    post:
+  /pets/getPetById/{id}:
+    get:
       tags:
         - Pets
-      summary: Create a new pet
-      description: Create a new pet
+      summary: Get Pet by ID
+      description: Get Pet by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Pet ID
+          schema:
+            type: string
       responses:
-        "201":
-          description: Pet created successfully
+        '200':
+          description: OK
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  status:
+                  message:
                     type: string
                     description: Status of the request
-                    example: success
+                    example: Success
                   payload:
-                    $ref: "#/components/schemas/Pet"
-        "400":
-          description: Bad Request
-        "500":
+                    $ref: '#/components/schemas/Pet'
+        '403':
+          description: Forbidden
+        '500':
           description: Internal Server Error
-
+  /pets/updatePets/{id}:
+    put:
+      tags:
+        - Pets
+      summary: Update Pet by ID
+      description: Update Pet by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Pet ID
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBodies/createPet'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Status of the request
+                    example: Success
+                  payload:
+                    $ref: '#/components/schemas/Pet'
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal Server Error
 components:
   schemas:
     Pet:
       type: object
       properties:
-        _id:
-          type: string
-          description: Pet ID
-          example: "5f7b1b7b7b7b7b7b7b7b7b7b"
         name:
           type: string
           description: Pet name
         type:
           type: string
-          description: Pet type
+          description: Pet specie
         age:
           type: integer
           description: Pet age
+        adopted:
+          type: boolean
+          description: Pet adoption status
+        _id:
+          type: ObjectId
+          description: Pet ID
         __v:
           type: integer
           description: Pet version
       example:
-        _id: "5f7b1b7b7b7b7b7b7b7b7b7b"
-        name: Max
-        type: Dog
+        name: Gus
+        specie: Hippopotamus
         age: 5
+        adopted: false
+        _id: 5f7b1b7b7b7b7b7b7b7b7b7b
         __v: 0
+  requestBodies:
+    createPet:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Pet name
+        type:
+          type: string
+          description: Pet specie
+        age:
+          type: integer
+          description: Pet age
+        adopted:
+          type: boolean
+          description: Pet adoption status
+      example:
+        name: Gus
+        type: Hippopotamus
+        age: 5
+        adopted: false

@@ -49,3 +49,12 @@ export const getPetById = async (req, res, next) => {
     next(error)
   }
 }
+
+export const getPetsAdoption = async (req, res, next) => {
+  try {
+    const pets = await services.getPetsAdoption();
+    res.send({ message: "Success", data: pets });
+  } catch (error) {
+    next(error);
+  }
+};

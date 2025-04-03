@@ -84,7 +84,7 @@ export const register = async (req, res, next) => {
         sameSite: "strict",
       });
 
-      res.json({ message: "Usuario creado", data: newUser });
+      res.json({ message: "Usuario creado y registrado", data: newUser });
     }
   } catch (error) {
     next(error);
@@ -122,3 +122,13 @@ export const login = async (req, res, next) => {
     next(error);
   }
 };
+
+export const deleteUser = async (req, res, next) => {
+  try {
+    const { idUser } = req.params;
+    const user = await services.deleteUser(idUser);
+    res.send({ message: "Success", data: user });
+  } catch (error) {
+    next(error);
+  }
+}

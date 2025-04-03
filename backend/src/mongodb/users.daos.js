@@ -1,3 +1,4 @@
+import { th } from "@faker-js/faker";
 import { userModel } from "./models/users.models.js";
 import { petsDao } from "./pets.daos.js";
 
@@ -49,6 +50,14 @@ class UserDaoMongo {
       return await this.model.findOne({ email });
     } catch (error) {
       throw new Error(error.message);
+    }
+  }
+
+  async deleteUser(idUser) {
+    try {
+      return await this.model.findByIdAndDelete(idUser);
+    } catch (error) {
+      throw new Error(error);
     }
   }
 }

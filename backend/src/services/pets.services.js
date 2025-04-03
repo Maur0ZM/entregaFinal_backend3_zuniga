@@ -58,3 +58,13 @@ export const getPetById = async (id) => {
     throw error;
   }
 }
+
+export const getPetsAdoption = async () => {
+  try {
+    const pets = await petsDao.getAdoptedPets();
+    if (!pets) throw new CustomError("Error al obtener las adopciones", 404);
+    return pets;
+  } catch (error) {
+    throw error;
+  }
+};

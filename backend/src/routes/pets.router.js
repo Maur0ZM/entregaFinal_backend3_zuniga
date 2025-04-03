@@ -8,6 +8,8 @@ router.post("/createpets", controllers.createPets);
 
 router.get("/getPetById/:idp", controllers.getPetById);
 
-router.post("/updatePets/:idp", controllers.updatePet);
+router.put("/updatePets/:idp", controllers.updatePet);
+
+router.get("/getPetsAdoption", controllers.getPetsAdoption);
 
 export default router;

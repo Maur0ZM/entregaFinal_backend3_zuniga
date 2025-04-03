@@ -125,3 +125,13 @@ export const findUserByEmail = async (email) => {
   }
 };
 
+export const deleteUser = async (idUser) => {
+  try {
+    const user = await userDao.deleteUser(idUser);
+    if (!user) throw new CustomError("Error al eliminar el usuario", 400);
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
+
