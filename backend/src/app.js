@@ -34,5 +34,5 @@ connectionMongo()
   });
 
 app.listen(config.PORT, () => {
-  console.log(`Servidor escuchando en el purto ${config.PORT}`);
+  console.log(`Servidor escuchando en el puerto ${config.PORT}`);
 });

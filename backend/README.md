@@ -1,0 +1,1 @@
+https://hub.docker.com/repository/docker/maur0zm/adoptme/tags/latest/sha256:cb1100cf85d7019a82091649ceec32fbd07d065970480a07572e96e6b48f51d1
